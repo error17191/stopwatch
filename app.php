@@ -1,12 +1,14 @@
 <?php
 
-require_once './RedisStorage.php';
-require_once './Stopwatch.php';
+require_once './CommandRunner.php';
+require_once './StartCommand.php';
+require_once './StopCommand.php';
+require_once './ResetCommand.php';
+require_once './StatsCommand.php';
 
-$stopWatch = new StopWatch(new RedisStorage());
-
-$stopWatch->start();
-usleep(5000000);
-$stopWatch->stop();
-
-echo $stopWatch->fullTime();
+$commandRunner = new CommandRunner([
+    'start' => StartCommand::class,
+    'stop' => StopCommand::class,
+    'reset' => ResetCommand::class,
+    'stats' => StatsCommand::class,
+]);
